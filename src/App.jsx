@@ -1,9 +1,8 @@
-import "./App.css";
 
 function App() {
   return (
     <>
-      <div className="bg-green-400 font-goblin p-4">
+      <div className="bg-druid-800 font-goblin p-4 text-white">
         This is a happy little font.
       </div>
       <div className="bg-indigo-900 font-cleric text-white p-4">
