@@ -8,7 +8,6 @@ export const Experience = () => {
         position: [3, 3, 3],
       }}
     >
-      <color attach="background" args={["#022510"]} />
       <OrbitControls />
       <mesh>
         <boxGeometry />

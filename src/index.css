@@ -41,6 +41,13 @@
   --color-halfling-500: #A1683A;
   --color-halfling-300: #C9A78A;
   --color-halfling-100: #F1E5D9;
+  
+  --animate-wiggle: wiggle 0.4s ease-in-out infinite;
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
 }
 
 html, body {

@@ -1,13 +1,13 @@
-import { Experience } from "./components/Experience";
-import { UI } from "./components/UI";
+import { Experience } from './experience'
+import { UI } from './ui'
 
 function App() {
   return (
     <>
-      <Experience />
       <UI />
+      <Experience />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
