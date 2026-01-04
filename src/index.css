@@ -30,15 +30,29 @@
   --color-druid-900: #010D06;
   --color-druid-800: #011309;
   --color-druid-700: #01190B;
+  --color-druid-600: #022510;
   --color-druid-500: #023115;
+
   --color-ghoul-500: #22C725;
   --color-ghoul-300: #71DD0B;
+
   --color-sorc-500: #8200EC;
 
   --color-halfling-500: #A1683A;
+  --color-halfling-300: #C9A78A;
   --color-halfling-100: #F1E5D9;
 }
 
-body {
-  background-color: var(--color-druid-800);
+html, body {
+  background-color: var(--color-druid-600);
+  font-family: var(--font-goblin);
 }
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
