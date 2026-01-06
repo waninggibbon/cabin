@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from './Button';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const useMediaQuery = query => {
@@ -70,7 +70,7 @@ export const Nav = () => {
   const mobileCircleRadius = 120;
 
   return (
-    <nav className="pointer-events-auto relative flex items-center">
+    <nav className="relative flex items-center">
       <div className="z-50 relative">
         <Button
           onClick={() => setIsOpen(!isOpen)}
@@ -85,7 +85,7 @@ export const Nav = () => {
                 exit={{ rotate: 90, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <X />
+                <span className="text-xl">X</span>
               </motion.div>
             ) : (
               <motion.div
@@ -129,18 +129,15 @@ export const Nav = () => {
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-0 z-0" // Center anchor at button center
               >
                 {items.map((item, i) => {
-                  // Calculate angle
                   const totalAngle = 180; // Semi-circle
                   const startAngle = 180; // Left
-                  // Distribute items
                   const step =
                     items.length > 1 ? totalAngle / (items.length - 1) : 0;
                   const angleDeg = startAngle + i * step;
                   const angleRad = (angleDeg * Math.PI) / 180;
 
-                  // offset by button size + 50%
-                  const x = Math.cos(angleRad) * mobileCircleRadius - 24 - 12;
-                  // offset by buttonsize + ui layer padding
+                  // offset by button size + ui layer padding
+                  const x = Math.cos(angleRad) * mobileCircleRadius - 24 - 16;
                   const y = Math.sin(angleRad) * mobileCircleRadius - 24 - 16;
 
                   return (
