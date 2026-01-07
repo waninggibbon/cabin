@@ -1,9 +1,9 @@
 import { Nav } from './Nav';
-import { Mute } from './Mute';
+import { AudioPlayer } from './AudioPlayer';
 
 export const UI = () => {
   return (
-    <div className="fixed inset-0 z-10 pointer-events-none p-4">
+    <div className="fixed inset-0 z-10 pointer-events-none p-8">
       <div className="mx-auto w-full h-full max-w-[1400px] relative">
         <h1 className="pointer-events-auto absolute top-0 left-0 text-sorc-400 text-4xl">
           nathy.dev
@@ -13,8 +13,8 @@ export const UI = () => {
           <Nav />
         </div>
 
-        <div className="pointer-events-auto absolute top-0 right-0">
-          <Mute />
+        <div className="pointer-events-auto absolute top-0 right-0 md:top-auto md:right-auto md:bottom-0 md:left-0">
+          <AudioPlayer />
         </div>
       </div>
     </div>
