@@ -9,12 +9,13 @@ export const UI = () => {
           nathy.dev
         </h1>
 
-        <div className="pointer-events-auto absolute bottom-0 left-1/2 -translate-x-1/2 md:top-0 md:bottom-auto md:left-auto md:translate-x-0 md:right-24">
-          <Nav />
-        </div>
-
-        <div className="pointer-events-auto absolute top-0 right-0 md:top-auto md:right-auto md:bottom-0 md:left-0">
-          <AudioPlayer />
+        <div className="md:pointer-events-auto md:absolute md:top-0 md:right-0 md:flex md:gap-4">
+          <div className="pointer-events-auto absolute bottom-0 left-1/2 -translate-x-1/2 md:static md:translate-x-0">
+            <Nav />
+          </div>
+          <div className="pointer-events-auto absolute top-0 right-0 md:static">
+            <AudioPlayer />
+          </div>
         </div>
       </div>
     </div>
