@@ -28,6 +28,9 @@ export const Gun = () => {
   const { camera } = useThree();
   const _dir = useRef(new Vector3());
   const _pos = useRef(new Vector3());
+  const _right = useRef(new Vector3());
+  const _up = useRef(new Vector3());
+  const _forward = useRef(new Vector3());
 
   useFrame((_, delta) => {
     // Always update bullet positions regardless of game/reload state
@@ -57,14 +60,19 @@ export const Gun = () => {
       fireTimer.current = 0;
 
       if (state.shoot()) {
-        // Create bullet
-        camera.getWorldDirection(_dir.current);
+        // Create bullet from gun barrel tip
+        camera.getWorldDirection(_forward.current);
         camera.getWorldPosition(_pos.current);
+        _right.current.crossVectors(_forward.current, camera.up).normalize();
+        _up.current.crossVectors(_right.current, _forward.current).normalize();
 
-        // Offset bullet spawn slightly forward from camera
-        const spawnPos = _pos.current
-          .clone()
-          .add(_dir.current.clone().multiplyScalar(0.5));
+        // Offset to match gun barrel: right, down, and forward from camera
+        const spawnPos = _pos.current.clone();
+        spawnPos.addScaledVector(_right.current, 0.15);   // match gun x offset
+        spawnPos.addScaledVector(_up.current, -0.25);      // below center
+        spawnPos.addScaledVector(_forward.current, 0.7);   // past the barrel tip
+
+        _dir.current.copy(_forward.current);
 
         activeBullets.push({
           id: ++nextBulletId,

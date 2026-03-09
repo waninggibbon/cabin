@@ -31,6 +31,7 @@ const INITIAL_STATE = {
   ammo: 12,
   maxAmmo: 12,
   isReloading: false,
+  shotsFired: 0,
   kills: 0,
   score: 0,
   enemies: [], // Array of { id, type, health, maxHealth }
@@ -152,7 +153,7 @@ export const useGameStore = create((set, get) => ({
     const { ammo, isReloading } = get();
     if (isReloading || ammo <= 0) return false;
 
-    set({ ammo: ammo - 1 });
+    set(state => ({ ammo: ammo - 1, shotsFired: state.shotsFired + 1 }));
 
     // Auto-reload when empty
     if (ammo - 1 <= 0) {

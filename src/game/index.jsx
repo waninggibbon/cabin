@@ -6,6 +6,7 @@ import { Arena } from './fps/Arena';
 import { Player } from './fps/Player';
 import { Bullets } from './fps/Bullets';
 import { WaveManager } from './fps/WaveManager';
+import { GunModel } from './fps/GunModel';
 
 const DefaultScene = () => (
   <>
@@ -18,12 +19,15 @@ const DefaultScene = () => (
 );
 
 const FPSScene = () => (
-  <Physics gravity={[0, -20, 0]}>
-    <Arena />
-    <Player />
-    <Bullets />
-    <WaveManager />
-  </Physics>
+  <>
+    <Physics gravity={[0, -20, 0]}>
+      <Arena />
+      <Player />
+      <Bullets />
+      <WaveManager />
+    </Physics>
+    <GunModel />
+  </>
 );
 
 export const Game = () => {
