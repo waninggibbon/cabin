@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useGameStore } from '../game/fps/useGameStore';
 
 const useMediaQuery = query => {
   const [matches, setMatches] = useState(false);
@@ -29,10 +30,14 @@ export const Nav = () => {
 
   const items = [
     { label: 'Home', onClick: () => setIsOpen(false) },
-    { label: 'About', onClick: () => setIsOpen(false) },
     { label: 'Contact', onClick: () => setIsOpen(false) },
-    { label: 'Blog', onClick: () => setIsOpen(false) },
-    { label: 'Work', onClick: () => setIsOpen(false) }
+    {
+      label: 'Game',
+      onClick: () => {
+        setIsOpen(false);
+        useGameStore.getState().startGame();
+      }
+    }
   ];
 
   // Animation Variants
