@@ -20,7 +20,7 @@ export const FpsHud = () => {
   return (
     <div className="fixed inset-0 z-20 pointer-events-none">
       {/* Crosshair */}
-      {gameState === 'playing' && (
+      {(gameState === 'playing' || gameState === 'waveIntro') && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <div
             style={{
@@ -48,21 +48,21 @@ export const FpsHud = () => {
       )}
 
       {/* Wave indicator (top center) */}
-      {gameState === 'playing' && (
+      {(gameState === 'playing' || gameState === 'waveIntro') && (
         <div className="absolute top-6 left-1/2 -translate-x-1/2 text-white text-xl tracking-widest opacity-60">
           WAVE {wave}
         </div>
       )}
 
       {/* Kill counter (top right) */}
-      {gameState === 'playing' && (
+      {(gameState === 'playing' || gameState === 'waveIntro') && (
         <div className="absolute top-6 right-8 text-white text-lg opacity-60">
           KILLS {kills}
         </div>
       )}
 
       {/* Health bar (bottom left) */}
-      {gameState === 'playing' && (
+      {(gameState === 'playing' || gameState === 'waveIntro') && (
         <div className="absolute bottom-8 left-8 flex items-center gap-2">
           <span className="text-white text-sm opacity-60">HP</span>
           <div
@@ -89,7 +89,7 @@ export const FpsHud = () => {
       )}
 
       {/* Ammo counter (bottom right) */}
-      {gameState === 'playing' && (
+      {(gameState === 'playing' || gameState === 'waveIntro') && (
         <div className="absolute bottom-8 right-8 text-white text-lg">
           {isReloading ? (
             <span className="text-yellow-400 animate-pulse">RELOADING...</span>
@@ -101,19 +101,14 @@ export const FpsHud = () => {
         </div>
       )}
 
-      {/* Wave Intro */}
+      {/* Wave Imminent */}
       {gameState === 'waveIntro' && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <div
-              className="text-white text-6xl tracking-widest animate-pulse"
-              style={{ textShadow: '0 0 20px rgba(130,0,236,0.8)' }}
-            >
-              WAVE {wave}
-            </div>
-            <div className="text-white text-xl mt-4 opacity-50">
-              Get ready...
-            </div>
+          <div
+            className="text-white text-4xl tracking-widest animate-pulse"
+            style={{ textShadow: '0 0 20px rgba(130,0,236,0.8)' }}
+          >
+            WAVE {wave} IMMINENT
           </div>
         </div>
       )}
@@ -170,7 +165,7 @@ export const FpsHud = () => {
       )}
 
       {/* Click to start hint */}
-      {gameState === 'playing' && (
+      {(gameState === 'playing' || gameState === 'waveIntro') && (
         <div className="absolute top-16 left-1/2 -translate-x-1/2 text-white text-sm opacity-30 hidden md:block">
           Click to lock cursor • ESC to unlock
         </div>

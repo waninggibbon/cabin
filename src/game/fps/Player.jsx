@@ -24,7 +24,7 @@ export const Player = () => {
   const _right = useRef(new Vector3());
 
   useFrame(() => {
-    if (gameState !== 'playing') return;
+    if (gameState !== 'playing' && gameState !== 'waveIntro') return;
     const body = bodyRef.current;
     if (!body) return;
 

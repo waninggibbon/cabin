@@ -60,7 +60,12 @@ export const useGameStore = create((set, get) => ({
 
   resumeGame: () => set({ gameState: 'playing' }),
 
-  gameOver: () => set({ gameState: 'gameover' }),
+  gameOver: () => {
+    if (document.pointerLockElement) {
+      document.exitPointerLock();
+    }
+    set({ gameState: 'gameover' });
+  },
 
   returnToMenu: () => set({ ...INITIAL_STATE }),
 
@@ -103,14 +108,16 @@ export const useGameStore = create((set, get) => ({
   damageEnemy: (id, damage) => {
     const { enemies } = get();
     const enemy = enemies.find(e => e.id === id);
-    if (!enemy) return false;
+    if (!enemy || enemy.dying) return false;
 
     const newHealth = enemy.health - damage;
     if (newHealth <= 0) {
-      // Enemy killed
+      // Mark as dying (stays in array for death animation)
       const scoreMap = { grunt: 10, chucker: 25, titan: 50 };
       set(state => ({
-        enemies: state.enemies.filter(e => e.id !== id),
+        enemies: state.enemies.map(e =>
+          e.id === id ? { ...e, health: 0, dying: true } : e
+        ),
         enemiesRemaining: state.enemiesRemaining - 1,
         kills: state.kills + 1,
         score: state.score + (scoreMap[enemy.type] || 10)
@@ -126,10 +133,10 @@ export const useGameStore = create((set, get) => ({
     }
   },
 
+  // Final removal after death animation completes
   removeEnemy: id => {
     set(state => ({
-      enemies: state.enemies.filter(e => e.id !== id),
-      enemiesRemaining: state.enemiesRemaining - 1
+      enemies: state.enemies.filter(e => e.id !== id)
     }));
   },
 
