@@ -1,6 +1,8 @@
+import { useLocation } from 'wouter';
 import { useGameStore } from '../../game/fps/useGameStore';
 
 export const FpsHud = () => {
+  const [, navigate] = useLocation();
   const gameState = useGameStore(s => s.gameState);
   const wave = useGameStore(s => s.wave);
   const health = useGameStore(s => s.health);
@@ -54,10 +56,11 @@ export const FpsHud = () => {
         </div>
       )}
 
-      {/* Kill counter (top right) */}
+      {/* Kill & score counters (top left) */}
       {(gameState === 'playing' || gameState === 'waveIntro') && (
-        <div className="absolute top-6 right-8 text-white text-lg opacity-60">
-          KILLS {kills}
+        <div className="absolute top-6 left-8 text-white text-lg opacity-60 flex flex-col gap-2">
+          <span>{score}</span>
+          <span>💀 x {kills}</span>
         </div>
       )}
 
@@ -150,7 +153,7 @@ export const FpsHud = () => {
                 PLAY AGAIN
               </button>
               <button
-                onClick={() => useGameStore.getState().returnToMenu()}
+                onClick={() => navigate('/')}
                 className="px-6 py-3 text-white text-lg rounded cursor-pointer transition-all hover:scale-105"
                 style={{
                   background: 'rgba(255,255,255,0.1)',

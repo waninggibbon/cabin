@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'wouter';
 import { Button } from './Button';
 import { Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGameStore } from '../game/fps/useGameStore';
 
 const useMediaQuery = query => {
   const [matches, setMatches] = useState(false);
@@ -18,9 +18,15 @@ const useMediaQuery = query => {
   return matches;
 };
 
-export const Nav = () => {
+export const Nav = ({ onToggle } = {}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [, navigate] = useLocation();
   const isDesktop = useMediaQuery('(min-width: 768px)');
+
+  const close = () => {
+    setIsOpen(false);
+    onToggle?.(false);
+  };
 
   // Radius gets fucked when transitioning between mobile and desktop
   // So just close the menu in that case
@@ -29,13 +35,13 @@ export const Nav = () => {
   }, [isDesktop]);
 
   const items = [
-    { label: 'Home', onClick: () => setIsOpen(false) },
-    { label: 'Contact', onClick: () => setIsOpen(false) },
+    { label: 'Home', onClick: () => { close(); navigate('/'); } },
+    { label: 'Contact', onClick: close },
     {
       label: 'Game',
       onClick: () => {
-        setIsOpen(false);
-        useGameStore.getState().startGame();
+        close();
+        navigate('/game');
       }
     }
   ];
@@ -78,7 +84,11 @@ export const Nav = () => {
     <nav className="relative flex items-center">
       <div className="z-50 relative">
         <Button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            const next = !isOpen;
+            setIsOpen(next);
+            onToggle?.(next);
+          }}
           variant={isOpen ? 'attention' : 'default'}
         >
           <AnimatePresence mode="wait">
